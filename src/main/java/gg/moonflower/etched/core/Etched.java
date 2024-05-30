@@ -22,7 +22,6 @@ public class Etched {
     public static final String MOD_ID = "etched";
     public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
     public static final Logger LOGGER = LogManager.getLogger("Etched/General");
-    public static final ModelResourceLocation BOOMBOX_IN_HAND_MODEL = new ModelResourceLocation(new ResourceLocation(Etched.MOD_ID, "boombox_in_hand"), "inventory");
 
 
     public Etched() {

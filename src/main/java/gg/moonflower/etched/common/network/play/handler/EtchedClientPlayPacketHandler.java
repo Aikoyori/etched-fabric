@@ -9,6 +9,8 @@ import gg.moonflower.etched.client.screen.EtchingScreen;
 import gg.moonflower.etched.client.screen.RadioScreen;
 import gg.moonflower.etched.common.blockentity.AlbumJukeboxBlockEntity;
 import gg.moonflower.etched.common.network.play.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -27,6 +29,7 @@ import java.util.Optional;
 public class EtchedClientPlayPacketHandler {
 
     private static final Logger LOGGER = LogManager.getLogger();
+
 
     public static void handlePlayMusicPacket(ClientboundPlayMusicPacket pkt, Minecraft client) {
             ClientLevel level = client.level;

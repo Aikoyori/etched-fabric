@@ -1,18 +1,17 @@
 package gg.moonflower.etched.api.record;
 
 import gg.moonflower.etched.api.sound.SoundTracker;
-import gg.moonflower.etched.common.network.EtchedMessages;
 import gg.moonflower.etched.common.network.play.ClientboundPlayEntityMusicPacket;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.level.Level;
 
 import java.net.Proxy;
 import java.util.Optional;
@@ -44,6 +43,7 @@ public interface PlayableRecord {
      * @param z The z position of the entity
      * @return Whether the player is within distance
      */
+    @Environment(EnvType.CLIENT)
     static boolean canShowMessage(double x, double y, double z) {
         LocalPlayer player = Minecraft.getInstance().player;
         return player == null || player.distanceToSqr(x, y, z) <= 4096.0;
@@ -131,6 +131,8 @@ public interface PlayableRecord {
      * @param attenuationDistance The attenuation distance of the sound
      * @return The sound to play or nothing to error
      */
+
+    @Environment(EnvType.CLIENT)
     default Optional<? extends SoundInstance> createEntitySound(ItemStack stack, Entity entity, int track, int attenuationDistance) {
         return track < 0 ? Optional.empty() : this.getMusic(stack).filter(tracks -> track < tracks.length).map(tracks -> SoundTracker.getEtchedRecord(tracks[track].url(), tracks[track].getDisplayName(), entity, attenuationDistance, false));
     }
@@ -143,6 +145,7 @@ public interface PlayableRecord {
      * @param track  The track to play on the disc
      * @return The sound to play or nothing to error
      */
+    @Environment(EnvType.CLIENT)
     default Optional<? extends SoundInstance> createEntitySound(ItemStack stack, Entity entity, int track) {
         return this.createEntitySound(stack, entity, track, 16);
     }
@@ -153,6 +156,7 @@ public interface PlayableRecord {
      * @param stack The stack to get art for
      * @return A future for a potential cover
      */
+    @Environment(EnvType.CLIENT)
     CompletableFuture<AlbumCover> getAlbumCover(ItemStack stack, Proxy proxy, ResourceManager resourceManager);
 
     /**

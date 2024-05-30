@@ -17,8 +17,7 @@
     "modmenu": [ "gg.moonflower.etched.core.fabric.EtchedModMenuAPIImpl" ]
   },
   "depends": {
-    "fabric": "*",
-    "yet_another_config_lib_v3": "*"
+    "fabric": "*"
   },
   "mixins": ["etched.mixins.json"],
   "license": "GPL-3.0-only"

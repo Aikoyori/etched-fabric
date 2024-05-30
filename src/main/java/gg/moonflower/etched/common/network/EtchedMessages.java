@@ -5,6 +5,8 @@ import gg.moonflower.etched.common.network.play.handler.EtchedClientPlayPacketHa
 import gg.moonflower.etched.common.network.play.handler.EtchedServerPlayPacketHandler;
 import gg.moonflower.etched.core.Etched;
 import io.netty.handler.codec.EncoderException;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
@@ -34,17 +36,12 @@ public class EtchedMessages {
     }
 
     public static synchronized void init() {
-        client_register(ClientboundInvalidEtchUrlPacket.class, CLIENT_INVALID_ETCH_URL, EtchedClientPlayPacketHandler::handleSetInvalidEtch);
-        client_register(ClientboundPlayEntityMusicPacket.class, CLIENT_PLAY_ENTITY_MUSIC, EtchedClientPlayPacketHandler::handlePlayEntityMusicPacket);
-        client_register(ClientboundPlayMusicPacket.class, CLIENT_PLAY_MUSIC, EtchedClientPlayPacketHandler::handlePlayMusicPacket);
-        client_register(ClientboundSetUrlPacket.class, CLIENT_SET_URL, EtchedClientPlayPacketHandler::handleSetUrl);
 
         server_register(ServerboundSetUrlPacket.class, SERVER_SET_URL, EtchedServerPlayPacketHandler::handleSetUrl);
         server_register(ServerboundEditMusicLabelPacket.class, SERVER_EDIT_MUSIC_LABEL, EtchedServerPlayPacketHandler::handleEditMusicLabel);
 
 
         server_register(SetAlbumJukeboxTrackPacket.class, SHARED_SET_ALBUM_JUKEBOX_TRACK, EtchedServerPlayPacketHandler::handleSetAlbumJukeboxTrack);
-        client_register(SetAlbumJukeboxTrackPacket.class, SHARED_SET_ALBUM_JUKEBOX_TRACK, EtchedClientPlayPacketHandler::handleSetAlbumJukeboxTrack);
         /*register(ClientboundInvalidEtchUrlPacket.class, ClientboundInvalidEtchUrlPacket::new, NetworkDirection.PLAY_TO_CLIENT);
         register(ClientboundPlayEntityMusicPacket.class, ClientboundPlayEntityMusicPacket::new, NetworkDirection.PLAY_TO_CLIENT);
         register(ClientboundPlayMusicPacket.class, ClientboundPlayMusicPacket::new, NetworkDirection.PLAY_TO_CLIENT);
@@ -54,7 +51,16 @@ public class EtchedMessages {
         register(SetAlbumJukeboxTrackPacket.class, SetAlbumJukeboxTrackPacket::new, null); // Bidirectional
         */
     }
+    public static synchronized void initClient(){
 
+        client_register(ClientboundInvalidEtchUrlPacket.class, CLIENT_INVALID_ETCH_URL, EtchedClientPlayPacketHandler::handleSetInvalidEtch);
+        client_register(ClientboundPlayEntityMusicPacket.class, CLIENT_PLAY_ENTITY_MUSIC, EtchedClientPlayPacketHandler::handlePlayEntityMusicPacket);
+        client_register(ClientboundPlayMusicPacket.class, CLIENT_PLAY_MUSIC, EtchedClientPlayPacketHandler::handlePlayMusicPacket);
+        client_register(ClientboundSetUrlPacket.class, CLIENT_SET_URL, EtchedClientPlayPacketHandler::handleSetUrl);
+        client_register(SetAlbumJukeboxTrackPacket.class, SHARED_SET_ALBUM_JUKEBOX_TRACK, EtchedClientPlayPacketHandler::handleSetAlbumJukeboxTrack);
+    }
+
+    @Environment(EnvType.CLIENT)
     private static <MSG extends EtchedPacket> void client_register(Class<MSG> clazz, ResourceLocation packet_id, EtchedClientPacketHandlerInterface<MSG> packetHandler) {
         ClientPlayNetworking.registerGlobalReceiver(packet_id, (client, handler, buf, responseSender) -> {
             try {
@@ -65,6 +71,7 @@ public class EtchedMessages {
             }
         });
     }
+
     private static <MSG extends EtchedPacket> void server_register(Class<MSG> clazz, ResourceLocation packet_id, EtchedServerPacketHandlerInterface<MSG> packetHandler) {
         ServerPlayNetworking.registerGlobalReceiver(packet_id, (server, player, handler, buf, responseSender) -> {
             try {

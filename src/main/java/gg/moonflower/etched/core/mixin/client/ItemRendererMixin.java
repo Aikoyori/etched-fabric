@@ -2,6 +2,8 @@ package gg.moonflower.etched.core.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import gg.moonflower.etched.core.Etched;
+import gg.moonflower.etched.core.EtchedClient;
+import gg.moonflower.etched.core.fabric.EtchedFabricClient;
 import gg.moonflower.etched.core.registry.EtchedItems;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemModelShaper;
@@ -61,7 +63,7 @@ public class ItemRendererMixin {
     public BakedModel getModel(BakedModel original) {
         if (this.etched$capturedHandItem == EtchedItems.BOOMBOX.asItem()) {
 
-            return this.itemModelShaper.getModelManager().getModel(Etched.BOOMBOX_IN_HAND_MODEL);
+            return this.itemModelShaper.getModelManager().getModel(EtchedClient.BOOMBOX_IN_HAND_MODEL);
         }
         return original;
     }

@@ -6,6 +6,8 @@ import gg.moonflower.etched.common.network.play.ClientboundSetUrlPacket;
 import gg.moonflower.etched.core.Etched;
 import gg.moonflower.etched.core.fabric.EtchedConfig;
 import gg.moonflower.etched.core.registry.EtchedBlocks;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
@@ -168,6 +170,7 @@ public class RadioBlock extends BaseEntityBlock {
         return new ItemStack(/*state.getValue(PORTAL) ? EtchedBlocks.PORTAL_RADIO_ITEM :*/EtchedBlocks.RADIO);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (!EtchedConfig.HANDLER.instance().showNotes || !level.getBlockState(pos.above()).isAir()) {

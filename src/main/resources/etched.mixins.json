@@ -8,6 +8,7 @@
     "client.ClientLivingEntityMixin",
     "client.GuiAccessor",
     "client.HumanoidModelMixin",
+    "client.ItemRendererMixin",
     "client.ItemStackMixin",
     "client.ParrotMixin",
     "client.SoundEngineMixin",

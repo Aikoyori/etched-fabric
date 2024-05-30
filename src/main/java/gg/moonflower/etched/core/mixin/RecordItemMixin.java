@@ -7,6 +7,8 @@ import gg.moonflower.etched.api.record.TrackData;
 import gg.moonflower.etched.client.render.item.AlbumCoverItemRenderer;
 import gg.moonflower.etched.client.sound.EntityRecordSoundInstance;
 import gg.moonflower.etched.core.Etched;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -54,6 +56,7 @@ public abstract class RecordItemMixin extends Item implements PlayableRecord {
         return true;
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public Optional<? extends SoundInstance> createEntitySound(ItemStack stack, Entity entity, int track, int attenuationDistance) {
         if (track != 0 || !(stack.getItem() instanceof RecordItem record)) {
