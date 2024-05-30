@@ -1,12 +1,14 @@
 package gg.moonflower.etched.core;
 
 import gg.moonflower.etched.client.screen.*;
+import gg.moonflower.etched.common.entity.MinecartJukebox;
 import gg.moonflower.etched.common.menu.AlbumCoverMenu;
 import gg.moonflower.etched.common.menu.AlbumJukeboxMenu;
 import gg.moonflower.etched.core.registry.EtchedMenus;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 import gg.moonflower.etched.client.render.EtchedModelLayers;
 import gg.moonflower.etched.client.render.JukeboxMinecartRenderer;
@@ -28,7 +30,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 
-@ClientOnly
 public class EtchedClient {
 
     public static void registerItemGroups() {
@@ -37,6 +38,10 @@ public class EtchedClient {
         MenuScreens.register(EtchedMenus.RADIO_MENU, RadioScreen::new);
         MenuScreens.register(EtchedMenus.ALBUM_JUKEBOX_MENU, AlbumJukeboxScreen::new);
         MenuScreens.register(EtchedMenus.ALBUM_COVER_MENU, AlbumCoverScreen::new);
+        EntityRendererRegistry.register(EtchedEntities.JUKEBOX_MINECART,context -> {
+            return new JukeboxMinecartRenderer<>(context);
+        });
+        EntityModelLayerRegistry.registerModelLayer(EtchedModelLayers.JUKEBOX_MINECART,MinecartModel::createBodyLayer);
         //TODO: Move to registrat
         /*ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(event -> {
     	    event.accept(EtchedBlocks.ETCHING_TABLE.asStack(1));

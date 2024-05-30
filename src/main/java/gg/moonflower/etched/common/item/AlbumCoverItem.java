@@ -3,12 +3,9 @@ package gg.moonflower.etched.common.item;
 import gg.moonflower.etched.api.record.PlayableRecord;
 import gg.moonflower.etched.api.record.PlayableRecordItem;
 import gg.moonflower.etched.api.record.TrackData;
-import gg.moonflower.etched.client.render.item.AlbumCoverItemRenderer;
 import gg.moonflower.etched.common.menu.AlbumCoverMenu;
-import gg.moonflower.etched.core.Etched;
-import gg.moonflower.etched.core.quilt.EtchedConfig;
+import gg.moonflower.etched.core.fabric.EtchedConfig;
 import gg.moonflower.etched.core.registry.EtchedItems;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -33,7 +30,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 public class AlbumCoverItem extends PlayableRecordItem implements ContainerItem {
 
@@ -67,7 +63,7 @@ public class AlbumCoverItem extends PlayableRecordItem implements ContainerItem 
             return InteractionResultHolder.pass(stack);
         }
 
-        if (!EtchedConfig.INSTANCE.SERVER.useAlbumCoverMenu.value()) {
+        if (!EtchedConfig.HANDLER.instance().useAlbumCoverMenu) {
             return InteractionResultHolder.fail(stack);
         }
         return this.use(this, level, player, hand);
@@ -80,7 +76,7 @@ public class AlbumCoverItem extends PlayableRecordItem implements ContainerItem 
 
     @Override
     public boolean overrideStackedOnOther(ItemStack albumCover, Slot slot, ClickAction clickAction, Player player) {
-        if (EtchedConfig.INSTANCE.SERVER.useAlbumCoverMenu.value()) {
+        if (EtchedConfig.HANDLER.instance().useAlbumCoverMenu) {
             return false;
         }
         if (clickAction != ClickAction.SECONDARY) {
@@ -103,7 +99,7 @@ public class AlbumCoverItem extends PlayableRecordItem implements ContainerItem 
 
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack albumCover, ItemStack clickItem, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess) {
-        if (EtchedConfig.INSTANCE.SERVER.useAlbumCoverMenu.value()) {
+        if (EtchedConfig.HANDLER.instance().useAlbumCoverMenu) {
             return false;
         }
         if (clickAction == ClickAction.SECONDARY && slot.allowModification(player)) {

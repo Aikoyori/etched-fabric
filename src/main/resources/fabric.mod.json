@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "icon": "${mod_id}.icon.png",
+  "authors": ["Aikoyori - Port of Port","VanderCat - Quilt Port","Ocelot - Maintainer","Jackson - Owner","Farcr - Art","Echolite - Art","AstraZoey - Sound Design"],
+
+  "entrypoints": {
+    "main": [
+      "gg.moonflower.etched.core.fabric.EtchedFabric"
+    ],
+    "client": [
+      "gg.moonflower.etched.core.fabric.EtchedFabricClient"
+    ],
+    "modmenu": [ "gg.moonflower.etched.core.fabric.EtchedModMenuAPIImpl" ]
+  },
+  "depends": {
+    "fabric": "*",
+    "yet_another_config_lib_v3": "*"
+  },
+  "mixins": ["etched.mixins.json"],
+  "license": "GPL-3.0-only"
+}

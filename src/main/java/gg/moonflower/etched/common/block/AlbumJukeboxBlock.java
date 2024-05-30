@@ -1,8 +1,7 @@
 package gg.moonflower.etched.common.block;
 
 import gg.moonflower.etched.common.blockentity.AlbumJukeboxBlockEntity;
-import gg.moonflower.etched.core.Etched;
-import gg.moonflower.etched.core.quilt.EtchedConfig;
+import gg.moonflower.etched.core.fabric.EtchedConfig;
 import gg.moonflower.etched.core.registry.EtchedBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 import java.util.Map;
 
@@ -127,10 +125,10 @@ public class AlbumJukeboxBlock extends BaseEntityBlock {
         builder.add(FACING, POWERED, HAS_RECORD);
     }
 
-    @ClientOnly
+
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!EtchedConfig.INSTANCE.CLIENT.showNotes.value() || !level.getBlockState(pos.above()).isAir()) {
+        if (!EtchedConfig.HANDLER.instance().showNotes || !level.getBlockState(pos.above()).isAir()) {
             return;
         }
 

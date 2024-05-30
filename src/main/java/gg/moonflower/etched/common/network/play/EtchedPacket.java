@@ -3,13 +3,13 @@ package gg.moonflower.etched.common.network.play;
 import gg.moonflower.etched.common.network.EtchedMessages;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.ApiStatus;
-import org.quiltmc.qsl.networking.api.PacketByteBufs;
-import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
-import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -49,7 +49,9 @@ public interface EtchedPacket {
 
     default void sendToClients(Collection<ServerPlayer> players) {
         var buf = getBuf();
-        ServerPlayNetworking.send(players, getPacketId(), buf);
+        players.forEach(serverPlayer -> {
+            ServerPlayNetworking.send(serverPlayer, getPacketId(), buf);
+        });
         EtchedMessages.LOGGER.info(getPacketId()+" (server -> clients)");
     }
 

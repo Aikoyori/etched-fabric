@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "etched:item/boombox"
-  }
+  "parent": "etched:item/boombox_in_hand"
 }

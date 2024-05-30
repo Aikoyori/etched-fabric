@@ -9,6 +9,7 @@ import gg.moonflower.etched.common.network.play.ServerboundEditMusicLabelPacket;
 import gg.moonflower.etched.common.network.play.ServerboundSetUrlPacket;
 import gg.moonflower.etched.common.network.play.SetAlbumJukeboxTrackPacket;
 import gg.moonflower.etched.core.registry.EtchedItems;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.ApiStatus;
-import org.quiltmc.qsl.networking.api.PlayerLookup;
 
 @ApiStatus.Internal
 public class EtchedServerPlayPacketHandler {

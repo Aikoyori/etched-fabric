@@ -1,17 +1,13 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "8.1.1"
     id "maven-publish"
-    alias libs.plugins.quilt.loom
+    id 'fabric-loom' version '1.0-SNAPSHOT'
 }
 
 base {
     archivesName = project.archives_base_name
 }
 
-project.configurations.all {
-    exclude(group: "net.fabricmc", module: "fabric-loader")
-    exclude(group: "net.fabricmc.fabric-api")
-}
 
 version = project.mod_version
 group = project.maven_group
@@ -19,15 +15,11 @@ group = project.maven_group
 loom {
     accessWidenerPath = file("src/main/resources/${project.mod_id}.accesswidener")
 
-    mods {
-        "etched" {
-            sourceSet("main")
-        }
-    }
 }
 
 repositories {
     mavenLocal()
+    mavenCentral()
 //    maven {
 //        // location of the maven that hosts JEI files since January 2023
 //        name = "Jared's maven"
@@ -50,6 +42,12 @@ repositories {
     maven { url = "https://mvn.devos.one/snapshots/" }
     maven { url ="https://repo1.maven.org/maven2/"}
     maven { url = "https://jitpack.io/" }
+    repositories {
+        maven {
+            name 'Xander Maven'
+            url 'https://maven.isxander.dev/releases'
+        }
+    }
 }
 
 configurations {
@@ -57,17 +55,21 @@ configurations {
 }
 
 dependencies {
-    minecraft libs.minecraft
     mappings loom.layered() {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip")
     }
 
-    modImplementation libs.quilt.loader
-    modImplementation libs.quilted.fabric.api
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_cofig_api_version}"
+    modImplementation("dev.isxander:yet-another-config-lib:3.4.4+1.20.1-fabric")
     modLocalRuntime "fuzs.forgeconfigscreens:forgeconfigscreens-fabric:${forge_cofig_api_version}"
-    modLocalRuntime 'com.terraformersmc:modmenu:7.1.0'
+    modLocalRuntime 'com.terraformersmc:modmenu:7.1.0';
+    modApi 'com.terraformersmc:modmenu:7.1.0';
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.3.6")))
     modImplementation(include("com.tterrag.registrate_fabric:Registrate:${project.registrate_version}"))
             {exclude group: "com.github.llamalad7.mixinextras" }
 
@@ -83,14 +85,15 @@ processResources {
 
     inputs.property "minecraft_version", minecraft_version
 
-    filesMatching('quilt.mod.json') {
-        expand 'mod_version': mod_version,
-        "mod_id": mod_id,
-        "mod_name": mod_name,
-        "mod_description": mod_description,
-        "archives_base_name": archives_base_name,
 
-        "minecraft_version": minecraft_version
+    filesMatching("fabric.mod.json") {
+        expand "mod_version": mod_version,
+                "mod_id": mod_id,
+                "mod_name": mod_name,
+                "mod_description": mod_description,
+                "archives_base_name": archives_base_name,
+
+                "minecraft_version": minecraft_version
     }
 }
 

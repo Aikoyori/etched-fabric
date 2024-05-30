@@ -3,6 +3,7 @@ package gg.moonflower.etched.common.entity;
 import gg.moonflower.etched.api.record.PlayableRecord;
 import gg.moonflower.etched.api.sound.SoundTracker;
 import gg.moonflower.etched.core.Etched;
+import gg.moonflower.etched.core.fabric.EtchedConfig;
 import gg.moonflower.etched.core.registry.EtchedEntities;
 import gg.moonflower.etched.core.registry.EtchedItems;
 import net.minecraft.client.Minecraft;
@@ -35,7 +36,6 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author Ocelot
  */
-/*
 public class MinecartJukebox extends AbstractMinecart implements WorldlyContainer {
 
     private static final EntityDataAccessor<Boolean> DATA_ID_HAS_RECORD = SynchedEntityData.defineId(MinecartJukebox.class, EntityDataSerializers.BOOLEAN);
@@ -77,7 +77,7 @@ public class MinecartJukebox extends AbstractMinecart implements WorldlyContaine
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
-            if (Etched.CLIENT_CONFIG.showNotes.get() && this.random.nextInt(6) == 0) {
+            if (EtchedConfig.HANDLER.instance().showNotes && this.random.nextInt(6) == 0) {
                 SoundInstance instance = SoundTracker.getEntitySound(this.getId());
                 if (instance != null && Minecraft.getInstance().getSoundManager().isActive(instance)) {
                     this.level().addParticle(ParticleTypes.NOTE, this.getX(), this.getY() + 1.2D, this.getZ(), this.random.nextInt(25) / 24D, 0, 0);
@@ -247,4 +247,3 @@ public class MinecartJukebox extends AbstractMinecart implements WorldlyContaine
     public void setChanged() {
     }
 }
- */

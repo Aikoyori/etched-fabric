@@ -4,3 +4,5 @@ accessible field net/minecraft/data/worldgen/ProcessorLists EMPTY Lnet/minecraft
 accessible field net/minecraft/client/renderer/texture/SpriteContents originalImage Lcom/mojang/blaze3d/platform/NativeImage;
 accessible method net/minecraft/tags/BlockTags create (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
 accessible field net/minecraft/client/renderer/LevelRenderer playingRecords Ljava/util/Map;
+accessible field net/minecraft/client/gui/Gui overlayMessageString Lnet/minecraft/network/chat/Component;
+accessible field net/minecraft/client/gui/Gui overlayMessageTime I

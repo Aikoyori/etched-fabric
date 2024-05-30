@@ -8,6 +8,7 @@ import gg.moonflower.etched.api.record.AlbumCover;
 import gg.moonflower.etched.api.record.PlayableRecord;
 import gg.moonflower.etched.common.item.AlbumCoverItem;
 import gg.moonflower.etched.core.Etched;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -37,7 +38,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.ApiStatus;
-import org.quiltmc.qsl.networking.api.client.ClientPlayConnectionEvents;
 
 import java.io.IOException;
 import java.io.InputStream;

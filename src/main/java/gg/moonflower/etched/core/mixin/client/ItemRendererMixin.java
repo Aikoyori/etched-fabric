@@ -3,6 +3,7 @@ package gg.moonflower.etched.core.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import gg.moonflower.etched.core.Etched;
 import gg.moonflower.etched.core.registry.EtchedItems;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -27,8 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
 
-    @Unique
-    private static final ModelResourceLocation etched$BOOMBOX_IN_HAND_MODEL = new ModelResourceLocation(new ResourceLocation(Etched.MOD_ID, "boombox_in_hand"), "inventory");
 
     @Shadow
     @Final
@@ -57,12 +56,24 @@ public class ItemRendererMixin {
     public void capture(ItemStack itemStack, Level level, LivingEntity livingEntity, int i, CallbackInfoReturnable<BakedModel> cir) {
         this.etched$capturedHandItem = itemStack.getItem();
     }
-
+    /**/
     @ModifyVariable(method = "getModel", ordinal = 0, at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/renderer/ItemModelShaper;getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;", shift = At.Shift.AFTER))
     public BakedModel getModel(BakedModel original) {
         if (this.etched$capturedHandItem == EtchedItems.BOOMBOX.asItem()) {
-            return this.itemModelShaper.getModelManager().getModel(etched$BOOMBOX_IN_HAND_MODEL);
+
+            return this.itemModelShaper.getModelManager().getModel(Etched.BOOMBOX_IN_HAND_MODEL);
         }
         return original;
     }
+    /*
+     *//*
+    @Inject(method = "getModel",at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/BakedModel;getOverrides()Lnet/minecraft/client/renderer/block/model/ItemOverrides;"),cancellable = true)
+    void etched$BoomBoxModelInjection(ItemStack stack, Level level, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir){
+        if (this.etched$capturedHandItem == EtchedItems.BOOMBOX.asItem()) {
+            BakedModel bakedModel = this.itemModelShaper.getModelManager().getModel(etched$BOOMBOX_IN_HAND_MODEL);
+            ClientLevel clientLevel = level instanceof ClientLevel ? (ClientLevel)level : null;
+            BakedModel bakedModel2 = bakedModel.getOverrides().resolve(bakedModel, stack, clientLevel, entity, seed);
+            cir.setReturnValue(bakedModel2 == null ? this.itemModelShaper.getModelManager().getMissingModel() : bakedModel2);
+        }
+    }/**/
 }

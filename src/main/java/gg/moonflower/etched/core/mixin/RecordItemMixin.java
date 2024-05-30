@@ -19,7 +19,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.RecordItem;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -55,7 +54,6 @@ public abstract class RecordItemMixin extends Item implements PlayableRecord {
         return true;
     }
 
-    @ClientOnly
     @Override
     public Optional<? extends SoundInstance> createEntitySound(ItemStack stack, Entity entity, int track, int attenuationDistance) {
         if (track != 0 || !(stack.getItem() instanceof RecordItem record)) {
@@ -68,7 +66,6 @@ public abstract class RecordItemMixin extends Item implements PlayableRecord {
         return Optional.of(new EntityRecordSoundInstance(record.getSound(), entity));
     }
 
-    @ClientOnly
     @Override
     public CompletableFuture<AlbumCover> getAlbumCover(ItemStack stack, Proxy proxy, ResourceManager resourceManager) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(this);

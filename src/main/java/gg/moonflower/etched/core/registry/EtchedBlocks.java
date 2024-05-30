@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType.EntityFactory;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -52,28 +53,29 @@ public class EtchedBlocks {
                             .strength(2.5f)
                             .sound(SoundType.WOOD)
                     )
-                    .simpleItem()
+                    .item().tab(CreativeModeTabs.TOOLS_AND_UTILITIES).build()
                     .register();
     //registerWithItem("etching_table", () -> new EtchingTableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).strength(2.5F).sound(SoundType.WOOD)), new Item.Properties());
     public static final BlockEntry<AlbumJukeboxBlock> ALBUM_JUKEBOX =
             Etched.REGISTRATE.block("album_jukebox", AlbumJukeboxBlock::new)
                     .initialProperties(() -> Blocks.JUKEBOX)
-                    .simpleItem()
+                    .item().tab(CreativeModeTabs.TOOLS_AND_UTILITIES).build()
                     .register();
     //registerWithItem("album_jukebox", () -> new AlbumJukeboxBlock(BlockBehaviour.Properties.copy(Blocks.JUKEBOX)), new Item.Properties());
     public static final BlockEntry<RadioBlock> RADIO =
             Etched.REGISTRATE.block("radio", RadioBlock::new)
                     .initialProperties(() -> Blocks.JUKEBOX)
                     .properties(p->p.noOcclusion())
-                    .simpleItem()
+                    .item().tab(CreativeModeTabs.TOOLS_AND_UTILITIES).build()
                     .register();
     //registerWithItem("radio", () -> new RadioBlock(BlockBehaviour.Properties.copy(Blocks.JUKEBOX).noOcclusion()), new Item.Properties());
-    /*public static final ItemEntry<PortalRadioItem> PORTAL_RADIO_ITEM =
+    /*
+    public static final ItemEntry<PortalRadioItem> PORTAL_RADIO_ITEM =
             Etched.REGISTRATE.block("portal_radio", RadioBlock::new)
-                    .item(PortalRadioItem::new)
-                    .register();*/
-            //EtchedItems.register("portal_radio", () -> new PortalRadioItem(RADIO.get(), new Item.Properties()));
-
+                    .item(PortalRadioItem::new).tab(CreativeModeTabs.TOOLS_AND_UTILITIES).build()
+                    .register();
+            EtchedItems.register("portal_radio", () -> new PortalRadioItem(RADIO.get(), new Item.Properties()));
+*/
     public static final BlockEntityEntry<AlbumJukeboxBlockEntity> ALBUM_JUKEBOX_BE =
             (BlockEntityEntry<AlbumJukeboxBlockEntity>)(Object)Etched.REGISTRATE.blockEntity("album_jukebox", AlbumJukeboxBlockEntity::new)
                     .validBlocks(ALBUM_JUKEBOX)

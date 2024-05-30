@@ -53,6 +53,12 @@ public class EtchedItems {
         .properties(p->p.stacksTo(1))
                 .tab(CreativeModeTabs.TOOLS_AND_UTILITIES)
         .register();
+    /*
+    public static final ItemEntry<PortalRadioItem> PORTAL_RADIO_ITEM =
+        Etched.REGISTRATE.item("portal_radio", PortalRadioItem::new)
+        .properties(p->p.st(1))
+                .tab(CreativeModeTabs.TOOLS_AND_UTILITIES)
+        .register();*/
     //register("album_cover", () -> new AlbumCoverItem(new Item.Properties().stacksTo(1)));
     public static void register() {}
 }

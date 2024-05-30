@@ -1,7 +1,6 @@
-package gg.moonflower.etched.core.quilt;
+package gg.moonflower.etched.core.fabric;
 
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 
 //import gg.moonflower.etched.common.entity.MinecartJukebox;
 import gg.moonflower.etched.core.EtchedClient;
@@ -14,9 +13,10 @@ import net.minecraft.world.phys.HitResult;
 public class EtchedFabricClient implements ClientModInitializer {
 
     @Override
-    public void onInitializeClient(ModContainer mod) {
+    public void onInitializeClient() {
+
         EtchedClient.registerItemGroups();
-        
+
         ClientPickBlockGatherCallback.EVENT.register((player, result) -> {
             if (result.getType() == HitResult.Type.ENTITY && player.getAbilities().instabuild) {
                 Entity entity = ((EntityHitResult) result).getEntity();

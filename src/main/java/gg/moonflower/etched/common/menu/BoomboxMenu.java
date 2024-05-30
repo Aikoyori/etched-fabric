@@ -29,7 +29,7 @@ public class BoomboxMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(this.boomboxInventory, 0, 80, 20) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof PlayableRecord;
+                return PlayableRecord.isPlayableRecord(stack);
             }
 
             @Override

@@ -5,14 +5,13 @@ import gg.moonflower.etched.common.network.play.handler.EtchedClientPlayPacketHa
 import gg.moonflower.etched.common.network.play.handler.EtchedServerPlayPacketHandler;
 import gg.moonflower.etched.core.Etched;
 import io.netty.handler.codec.EncoderException;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
-import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
-import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking.ChannelReceiver;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;

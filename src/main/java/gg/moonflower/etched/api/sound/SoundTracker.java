@@ -11,6 +11,7 @@ import gg.moonflower.etched.core.Etched;
 import gg.moonflower.etched.core.mixin.client.GuiAccessor;
 import gg.moonflower.etched.core.registry.EtchedTags;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -34,7 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.networking.api.client.ClientPlayConnectionEvents;
 
 import java.util.*;
 import java.util.function.DoubleSupplier;
@@ -474,14 +474,14 @@ public class SoundTracker {
             if (this.component == null) {
                 this.component = new DownloadTextComponent();
                 Minecraft.getInstance().gui.setOverlayMessage(this.component, true);
-                ((GuiAccessor) Minecraft.getInstance().gui).setOverlayMessageTime(Short.MAX_VALUE);
+                Minecraft.getInstance().gui.overlayMessageTime = Short.MAX_VALUE;
             }
             this.component.setText(text.getString());
         }
 
         protected void clearComponent() {
-            if (((GuiAccessor) Minecraft.getInstance().gui).getOverlayMessageString() == this.component) {
-                ((GuiAccessor) Minecraft.getInstance().gui).setOverlayMessageTime(60);
+            if (Minecraft.getInstance().gui.overlayMessageString == this.component) {
+                Minecraft.getInstance().gui.overlayMessageTime = 60;
                 this.component = null;
             }
         }

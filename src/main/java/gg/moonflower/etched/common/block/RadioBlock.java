@@ -2,11 +2,9 @@ package gg.moonflower.etched.common.block;
 
 import gg.moonflower.etched.common.blockentity.RadioBlockEntity;
 import gg.moonflower.etched.common.menu.RadioMenu;
-import gg.moonflower.etched.common.network.EtchedMessages;
 import gg.moonflower.etched.common.network.play.ClientboundSetUrlPacket;
 import gg.moonflower.etched.core.Etched;
-import gg.moonflower.etched.core.EtchedClient;
-import gg.moonflower.etched.core.quilt.EtchedConfig;
+import gg.moonflower.etched.core.fabric.EtchedConfig;
 import gg.moonflower.etched.core.registry.EtchedBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -37,7 +35,6 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -173,7 +170,7 @@ public class RadioBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!EtchedConfig.INSTANCE.CLIENT.showNotes.value() || !level.getBlockState(pos.above()).isAir()) {
+        if (!EtchedConfig.HANDLER.instance().showNotes || !level.getBlockState(pos.above()).isAir()) {
             return;
         }
 
